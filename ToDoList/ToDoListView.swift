@@ -10,20 +10,21 @@ import SwiftUI
 struct ToDoListView: View {
     var body: some View {
         NavigationStack {
-            VStack {
-                NavigationLink {
-                    DetailView()
-                } label: {
-                    Image(systemName: "eye")
-                    Text("Show the New View!")
+            List {
+                ForEach(0..<100, id: \.self) { number in
+                    NavigationLink {
+                        DetailView(passedValue: "Item \(number+1)")
+                    } label: {
+                        Text("Item \(number+1)")
+                    }
                 }
-                .buttonStyle(.borderedProminent)
-
             }
-            .padding()
+            .navigationTitle("School Year")
+            .listStyle(.plain)
         }
     }
 }
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
