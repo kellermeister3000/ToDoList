@@ -15,12 +15,19 @@ struct ToDoListView: View {
         NavigationStack {
             List {
                 ForEach(toDosVM.toDos) { toDo in
-                    NavigationLink {
-                        DetailView(toDo: toDo)
-                    } label: {
-                        Text(toDo.item)
-                    }
+                    HStack {
+                        Image(systemName: toDo.isCompleted ? "checkmark.rectangle" : "rectangle")
+                            .onTapGesture {
+                                toDosVM.toggleCompleted(toDo: toDo)
+                            }
+                        
+                        NavigationLink {
+                            DetailView(toDo: toDo)
+                        } label: {
+                            Text(toDo.item)
+                        }
                     .font(.title2)
+                    }
                 }
                 // Shorthand calls to .onDelete and .onMove here
                 .onDelete(perform: toDosVM.deleteToDo)
