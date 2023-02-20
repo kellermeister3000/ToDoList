@@ -11,6 +11,7 @@ class ToDosViewModel: ObservableObject {
     @Published var toDos: [ToDo] = []
     
     init() {
+//        purgeData()
         loadData()
     }
     
@@ -57,5 +58,15 @@ class ToDosViewModel: ObservableObject {
             print("😡 ERROR: Could not save data \(error.localizedDescription)")
         }
         saveData()
+    }
+    
+    func purgeData() {
+        let path = URL.documentsDirectory.appending(component: "toDos")
+        let data = try? JSONEncoder().encode("") // try? means if error is thrown, data = nil
+        do {
+            try data?.write(to: path)
+        } catch {
+            print("😡 ERROR: Could not save data \(error.localizedDescription)")
+        }
     }
 }
